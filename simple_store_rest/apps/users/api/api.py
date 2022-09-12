@@ -13,6 +13,9 @@ def user_api_view(request):
     return Response(users_serializer.data)
 
   if request.method == 'POST':
-    payload = request.data
-    print(payload)
-    return Response(payload)
+    user_serializer = UserSerializer(data = request.data) # get json and compare to model
+    if(user_serializer.is_valid()):
+      user_serializer.save()
+      return Response(user_serializer.data)
+    
+    return Response(user_serializer.errors, 400)
