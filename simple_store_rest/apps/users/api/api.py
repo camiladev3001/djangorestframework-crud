@@ -3,10 +3,22 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from apps.users.models import User
-from apps.users.api.serializer import UserSerializer
+from apps.users.api.serializer import UserSerializer, TestUserSerializer
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def user_api_view(request):
+
+  test_data = {
+    'name': 'develop',
+    'email': 'develop@gmail.com',
+    'age': '22'
+  }
+
+  test_user = TestUserSerializer(data = test_data)
+  if test_user.is_valid():
+    print('paso validacion')
+  else:
+    print('no pasa validation')
   
   # list resources
   if request.method == 'GET':
