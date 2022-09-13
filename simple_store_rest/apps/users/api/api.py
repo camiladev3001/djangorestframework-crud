@@ -9,16 +9,16 @@ from apps.users.api.serializer import UserSerializer, TestUserSerializer
 def user_api_view(request):
 
   test_data = {
-    'name': 'develop',
+    'name': '',
     'email': 'develop@gmail.com',
     'age': '22'
   }
 
-  test_user = TestUserSerializer(data = test_data)
+  test_user = TestUserSerializer(data = test_data, context = test_data)
   if test_user.is_valid():
     print('paso validacion')
   else:
-    print('no pasa validation')
+    print(test_user.errors)
   
   # list resources
   if request.method == 'GET':
